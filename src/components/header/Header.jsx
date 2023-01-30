@@ -1,6 +1,6 @@
 import classes from "./Header.module.scss";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { MenuButton } from "../UI/MenuButton";
 import Navigation from "../navigation/Navigation";
 
@@ -24,14 +24,16 @@ const Header = () => {
           stickyHeader ? classes["sticky-header"] : classes.header
         }`}
       >
-        <motion.img
+        <motion.div
           initial={{ opacity: 0, x: -180 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ ease: "easeInOut", duration: 0.5, delay: 0.2 }}
-          src="/backyard-logo.svg"
-        />
+          transition={{ ease: "easeInOut", duration: 0.9, delay: 0.2 }}
+        >
+          <img src="/backyard-logo.svg" alt="" />
+        </motion.div>
 
         <motion.div
+          className={classes.burger}
           initial={{ opacity: 0, x: 180 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
@@ -44,7 +46,7 @@ const Header = () => {
             onClick={() => setOpen((prev) => !prev)}
           />
 
-          {isOpen && <Navigation />}
+          <AnimatePresence>{isOpen && <Navigation />}</AnimatePresence>
         </motion.div>
       </motion.div>
     </div>

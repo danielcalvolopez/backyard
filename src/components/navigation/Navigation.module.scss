@@ -1,7 +1,7 @@
 .navigation {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -11,4 +11,27 @@
   left: 0px;
   width: 100vw;
   background-color: white;
+
+  p {
+    cursor: pointer;
+    font-weight: 200;
+
+    &:hover {
+      color: gray;
+    }
+  }
+
+  .socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 50px;
+
+    .fb,
+    .ig {
+      cursor: pointer;
+      &:hover {
+        fill: gray;
+      }
+    }
+  }
 }
