@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import Head from "next/head";
 import classes from "@/styles/Home.module.scss";
 import Header from "@/components/header/Header";
-import { Navigation } from "@/components/navigation/Navigation";
 
 const Home = () => {
   return (
@@ -15,7 +15,13 @@ const Home = () => {
       <div className={classes.hero}>
         <Header />
 
-        <p>
+        <motion.div
+          initial={{ opacity: 0, x: 0 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
+          className={classes.banner}
+        ></motion.div>
+        <p className={classes.mocktext}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and

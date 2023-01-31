@@ -1,5 +1,5 @@
 import classes from "./Header.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MenuButton } from "../UI/MenuButton";
 import Navigation from "../navigation/Navigation";
@@ -27,9 +27,9 @@ const Header = () => {
         <motion.div
           initial={{ opacity: 0, x: -180 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ ease: "easeInOut", duration: 0.9, delay: 0.2 }}
+          transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
         >
-          <img src="/backyard-logo.svg" alt="" />
+          <img className={classes.logo} src="/backyard-logo.svg" alt="" />
         </motion.div>
 
         <motion.div

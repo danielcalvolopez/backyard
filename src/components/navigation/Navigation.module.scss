@@ -14,23 +14,28 @@
 
   p {
     cursor: pointer;
-    font-weight: 200;
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 10px;
+    text-transform: uppercase;
 
     &:hover {
-      color: gray;
+      color: rgb(0, 0, 0, 0.4);
+      transition: ease-in-out 0.2;
     }
   }
 
   .socials {
     display: flex;
     gap: 10px;
-    margin-top: 50px;
+    margin-top: 150px;
 
     .fb,
     .ig {
       cursor: pointer;
       &:hover {
-        fill: gray;
+        color: rgb(0, 0, 0, 0.4);
+        transition: ease-in-out 0.2;
       }
     }
   }

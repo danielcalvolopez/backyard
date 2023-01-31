@@ -1,8 +1,17 @@
 .hero {
-  p {
-    padding: 0 40px;
+  .mocktext {
+    padding: 50px 100px;
     font-size: 50px;
     font-weight: 200;
+  }
+
+  .banner {
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    background-image: url("/backyard-surf-kiko-riding.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100%;
   }
 }
 
