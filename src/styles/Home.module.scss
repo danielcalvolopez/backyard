@@ -13,14 +13,19 @@
     background-repeat: no-repeat;
     background-size: 100%;
   }
-}
 
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 10px;
-  transform-origin: 0%;
-  background-color: black;
+  h2 {
+    position: absolute;
+    color: rgb(0, 0, 0, 0.6);
+    top: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 90px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    font-weight: 100;
+  }
 }

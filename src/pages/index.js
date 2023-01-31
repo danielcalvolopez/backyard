@@ -1,13 +1,18 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Head from "next/head";
 import classes from "@/styles/Home.module.scss";
 import Header from "@/components/header/Header";
+import Slideshow from "@/components/slideshow/Slideshow";
 
 const Home = () => {
+  const { scrollYProgress } = useScroll();
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, -600]);
+
   return (
     <>
       <Head>
-        <title>Backyard Surf</title>
+        <title>Backyard Surf | Custom Surfboards & Surf School</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -20,7 +25,11 @@ const Home = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
           className={classes.banner}
-        ></motion.div>
+        />
+
+        <Slideshow />
+
+        {/* <motion.h2 style={{ x }}>Mediterranean Offshore</motion.h2> */}
         <p className={classes.mocktext}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever

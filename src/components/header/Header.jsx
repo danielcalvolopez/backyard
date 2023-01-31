@@ -1,5 +1,5 @@
 import classes from "./Header.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MenuButton } from "../UI/MenuButton";
 import Navigation from "../navigation/Navigation";
