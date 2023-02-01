@@ -1,56 +1,118 @@
+import { useEffect, useRef, useState } from "react";
+import ArrowLeft from "../UI/ArrowLeft";
+import ArrowRight from "../UI/ArrowRight";
+import { AnimatePresence, motion } from "framer-motion";
+import { wrap } from "@popmotion/popcorn";
+import slideshowImages from "@/utils/data/slideshowImages";
 import classes from "./Slideshow.module.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectFade } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
-import { useRef } from "react";
-import ArrowLeft from "../UI/ArrowLeft";
-import ArrowRight from "../UI/ArrowRight";
+
+const variants = {
+  enter: (direction) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+};
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset, velocity) => {
+  return Math.abs(offset) * velocity;
+};
+
+const getScreenWidth = () => {
+  if (typeof window !== "undefined") {
+    const { innerWidth } = window;
+    return innerWidth;
+  }
+};
 
 const Slideshow = () => {
   const swiperArrowPrev = useRef(null);
   const swiperArrowNext = useRef(null);
 
+  const [[page, direction], setPage] = useState([0, 0]);
+  const [width, setWidth] = useState(innerWidth);
+
+  console.log(width);
+
+  const imageIndex = wrap(0, slideshowImages.length, page);
+
+  const paginate = (newDirection) => {
+    setPage([page + newDirection, newDirection]);
+  };
+
+  useEffect(() => {
+    const handleScreenWidth = () => {
+      setWidth(getScreenWidth());
+    };
+    window.addEventListener("resize", handleScreenWidth);
+
+    return () => {
+      window.removeEventListener("resize", handleScreenWidth);
+    };
+  }, []);
+
   return (
-    <div className={classes.container}>
-      <Swiper
-        modules={[Navigation, EffectFade]}
-        navigation={{
-          prevEl: swiperArrowPrev.current,
-          nextEl: swiperArrowNext.current,
-        }}
-        effect
-        speed={800}
-        slidesPerView={1}
-        loop
-        className={classes.swiper}
-      >
-        <SwiperSlide className={classes.slide}>
-          <img src="/backyard-surf-kiko-riding.jpeg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide className={classes.slide}>
-          <img
-            src="https://images.unsplash.com/photo-1674786272813-dd04d4843752?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60"
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide className={classes.slide}>
-          <img
-            src="https://images.unsplash.com/photo-1675005921870-ccded2e54ce8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4N3x8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60"
-            alt=""
-          />
-        </SwiperSlide>
-      </Swiper>
+    <AnimatePresence initial={false} custom={direction}>
+      <div className={classes.container}>
+        <div className={classes.swiper}>
+          <motion.img
+            className={classes.image}
+            key={page}
+            src={
+              width > 736
+                ? slideshowImages[imageIndex].url
+                : slideshowImages[imageIndex].cropUrl
+            }
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
 
-      <div ref={swiperArrowPrev}>
-        <ArrowLeft className={classes.back} />
-      </div>
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
+            }}
+          />
+        </div>
 
-      <div ref={swiperArrowNext}>
-        <ArrowRight className={classes.forward} />
+        <div ref={swiperArrowPrev} onClick={() => paginate(1)}>
+          <ArrowLeft className={classes.back} />
+        </div>
+
+        <div ref={swiperArrowNext} onClick={() => paginate(-1)}>
+          <ArrowRight className={classes.forward} />
+        </div>
       </div>
-    </div>
+    </AnimatePresence>
   );
 };
 

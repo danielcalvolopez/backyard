@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.1.6",
+    "@popmotion/popcorn": "^0.4.4",
     "framer-motion": "^8.5.5",
     "image-focus": "^1.2.1",
     "next": "13.1.6",
