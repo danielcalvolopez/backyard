@@ -20,12 +20,12 @@ const Home = () => {
       <div className={classes.hero}>
         <Header />
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, x: 0 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
           className={classes.banner}
-        />
+        /> */}
 
         <Slideshow />
 

@@ -43,11 +43,11 @@ const Slideshow = () => {
         </SwiperSlide>
       </Swiper>
 
-      <div className={classes.left} ref={swiperArrowPrev}>
+      <div ref={swiperArrowPrev}>
         <ArrowLeft className={classes.back} />
       </div>
 
-      <div className={classes.right} ref={swiperArrowNext}>
+      <div ref={swiperArrowNext}>
         <ArrowRight className={classes.forward} />
       </div>
     </div>
