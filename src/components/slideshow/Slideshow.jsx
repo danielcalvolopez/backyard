@@ -35,38 +35,37 @@ const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity;
 };
 
-const getScreenWidth = () => {
-  if (typeof window !== "undefined") {
-    const { innerWidth } = window;
-    return innerWidth;
-  }
-};
-
 const Slideshow = () => {
+  const useWindowSize = () => {
+    const [screenWidth, setScreenWidth] = useState(undefined);
+
+    useEffect(() => {
+      const handleScreenWidth = () => {
+        setScreenWidth(window.innerWidth);
+      };
+      window.addEventListener("resize", handleScreenWidth);
+
+      handleScreenWidth();
+
+      return () => {
+        window.removeEventListener("resize", handleScreenWidth);
+      };
+    }, []);
+    return screenWidth;
+  };
+
+  const width = useWindowSize();
+
   const swiperArrowPrev = useRef(null);
   const swiperArrowNext = useRef(null);
 
   const [[page, direction], setPage] = useState([0, 0]);
-  const [width, setWidth] = useState(innerWidth);
-
-  console.log(width);
 
   const imageIndex = wrap(0, slideshowImages.length, page);
 
   const paginate = (newDirection) => {
     setPage([page + newDirection, newDirection]);
   };
-
-  useEffect(() => {
-    const handleScreenWidth = () => {
-      setWidth(getScreenWidth());
-    };
-    window.addEventListener("resize", handleScreenWidth);
-
-    return () => {
-      window.removeEventListener("resize", handleScreenWidth);
-    };
-  }, []);
 
   return (
     <AnimatePresence initial={false} custom={direction}>
@@ -86,7 +85,7 @@ const Slideshow = () => {
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
+              x: { type: "spring", stiffness: 300, damping: 35 },
               opacity: { duration: 0.2 },
             }}
             drag="x"
