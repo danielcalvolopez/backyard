@@ -67,17 +67,24 @@ const Slideshow = () => {
     setPage([page + newDirection, newDirection]);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      paginate(1);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [paginate]);
+
   return (
     <AnimatePresence initial={false} custom={direction}>
-      <div className={classes.container}>
+      <motion.div className={classes.container}>
         <div className={classes.swiper}>
           <motion.img
             className={classes.image}
             key={page}
             src={
               width > 736
-                ? slideshowImages[imageIndex].url
-                : slideshowImages[imageIndex].cropUrl
+                ? slideshowImages[imageIndex]?.url
+                : slideshowImages[imageIndex]?.cropUrl
             }
             custom={direction}
             variants={variants}
@@ -86,7 +93,7 @@ const Slideshow = () => {
             exit="exit"
             transition={{
               x: { type: "spring", stiffness: 300, damping: 35 },
-              opacity: { duration: 0.2 },
+              opacity: { duration: 0.5 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -103,14 +110,14 @@ const Slideshow = () => {
           />
         </div>
 
-        <div ref={swiperArrowPrev} onClick={() => paginate(1)}>
+        {/* <div ref={swiperArrowPrev} onClick={() => paginate(1)}>
           <ArrowLeft className={classes.back} />
         </div>
 
         <div ref={swiperArrowNext} onClick={() => paginate(-1)}>
           <ArrowRight className={classes.forward} />
-        </div>
-      </div>
+        </div> */}
+      </motion.div>
     </AnimatePresence>
   );
 };
