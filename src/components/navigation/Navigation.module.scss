@@ -15,7 +15,7 @@
 
   p {
     cursor: pointer;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 400;
     letter-spacing: 10px;
     text-transform: uppercase;
@@ -42,7 +42,7 @@
   }
 }
 
-@media (min-width: 320px) {
+@media (max-width: 550px) {
   .navigation {
     p {
       cursor: pointer;

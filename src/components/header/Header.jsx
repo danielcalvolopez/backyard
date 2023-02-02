@@ -25,8 +25,8 @@ const Header = () => {
         }`}
       >
         <motion.div
-          initial={{ opacity: 0, x: -180 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
         >
           <img className={classes.logo} src="/backyard-logo.svg" alt="" />
@@ -34,8 +34,8 @@ const Header = () => {
 
         <motion.div
           className={classes.burger}
-          initial={{ opacity: 0, x: 180 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
         >
           <MenuButton

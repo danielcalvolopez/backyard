@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import classes from "./Navigation.module.scss";
 import { AiOutlineInstagram, AiFillFacebook } from "react-icons/ai";
 
+const transition = { duration: 1.4, ease: [0.6, 0.01, -0.05, 0.9] };
+
 const Navigation = () => {
   return (
     <motion.div
