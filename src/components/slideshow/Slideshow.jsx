@@ -56,8 +56,8 @@ const Slideshow = () => {
 
   const width = useWindowSize();
 
-  const swiperArrowPrev = useRef(null);
-  const swiperArrowNext = useRef(null);
+  // const swiperArrowPrev = useRef(null);
+  // const swiperArrowNext = useRef(null);
 
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -76,7 +76,7 @@ const Slideshow = () => {
 
   return (
     <AnimatePresence initial={false} custom={direction}>
-      <motion.div className={classes.container}>
+      <div className={classes.container}>
         <div className={classes.swiper}>
           <motion.img
             className={classes.image}
@@ -117,7 +117,7 @@ const Slideshow = () => {
         <div ref={swiperArrowNext} onClick={() => paginate(-1)}>
           <ArrowRight className={classes.forward} />
         </div> */}
-      </motion.div>
+      </div>
     </AnimatePresence>
   );
 };
