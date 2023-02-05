@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import ArrowLeft from "../UI/ArrowLeft";
 import ArrowRight from "../UI/ArrowRight";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+  useViewportScroll,
+} from "framer-motion";
 import { wrap } from "@popmotion/popcorn";
 import slideshowImages from "@/utils/data/slideshowImages";
 import classes from "./Slideshow.module.scss";
@@ -36,6 +42,22 @@ const swipePower = (offset, velocity) => {
 };
 
 const Slideshow = () => {
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
+  const [offsetY, setOffsetY] = useState(0);
+
+  const handleScroll = () => {
+    setOffsetY(window.pageYOffset);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const useWindowSize = () => {
     const [screenWidth, setScreenWidth] = useState(undefined);
 
@@ -77,8 +99,12 @@ const Slideshow = () => {
   return (
     <AnimatePresence initial={false} custom={direction}>
       <div className={classes.container}>
-        <div className={classes.swiper}>
+        <div
+          className={classes.swiper}
+          style={{ transform: `translateY(${offsetY * 0.4}px)` }}
+        >
           <motion.img
+            style={{ scale: scale, opacity: opacity }}
             className={classes.image}
             key={page}
             src={
