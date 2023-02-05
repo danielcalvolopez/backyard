@@ -1,14 +1,9 @@
-import { motion, useScroll, useTransform } from "framer-motion";
 import Head from "next/head";
 import classes from "@/styles/Home.module.scss";
 import Header from "@/components/header/Header";
 import Slideshow from "@/components/slideshow/Slideshow";
 
 const Home = () => {
-  const { scrollYProgress } = useScroll();
-
-  const x = useTransform(scrollYProgress, [0, 1], [0, -600]);
-
   return (
     <>
       <Head>
@@ -30,6 +25,7 @@ const Home = () => {
         <Slideshow />
 
         {/* <motion.h2 style={{ x }}>Mediterranean Offshore</motion.h2> */}
+
         <p className={classes.mocktext}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
