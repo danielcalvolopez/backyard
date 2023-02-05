@@ -1,10 +1,18 @@
 import classes from "./Header.module.scss";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { MenuButton } from "../UI/MenuButton";
 import Navigation from "../navigation/Navigation";
 
 const Header = () => {
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 0.1], [1.3, 1]);
+
   const [stickyHeader, setStickyHeader] = useState(false);
 
   const [isOpen, setOpen] = useState(false);
@@ -12,7 +20,7 @@ const Header = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", () =>
-        setStickyHeader(window.pageYOffset > 30)
+        setStickyHeader(window.pageYOffset > 10)
       );
     }
   }, []);
@@ -25,6 +33,7 @@ const Header = () => {
         }`}
       >
         <motion.div
+          style={{ scale: scale }}
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ease: "easeInOut", duration: 1, delay: 0.2 }}
