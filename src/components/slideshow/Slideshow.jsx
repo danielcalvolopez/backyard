@@ -6,7 +6,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useViewportScroll,
 } from "framer-motion";
 import { wrap } from "@popmotion/popcorn";
 import slideshowImages from "@/utils/data/slideshowImages";
@@ -44,7 +43,7 @@ const swipePower = (offset, velocity) => {
 const Slideshow = () => {
   const { scrollYProgress } = useScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const [offsetY, setOffsetY] = useState(0);
 
