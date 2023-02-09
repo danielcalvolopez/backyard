@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowLeft from "../UI/ArrowLeft";
 import ArrowRight from "../UI/ArrowRight";
 import {
