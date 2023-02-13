@@ -24,8 +24,6 @@ const Home = () => {
 
         <Slideshow />
 
-        {/* <motion.h2 style={{ x }}>Mediterranean Offshore</motion.h2> */}
-
         <div className={classes.mocktext}>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
